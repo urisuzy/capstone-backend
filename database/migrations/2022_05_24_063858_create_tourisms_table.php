@@ -22,8 +22,9 @@ return new class extends Migration
             $table->string('city');
             $table->integer('price');
             $table->double('rating');
+            $table->integer('time_minutes');
             $table->string('coordinate');
-            $table->thumbnail('string');
+            $table->string('thumbnail');
             $table->timestamps();
         });
     }
