@@ -13,46 +13,58 @@ class UserController extends Controller
     use ApiResponser;
     public function me()
     {
-        $userId = Auth::id();
-        $user = User::with('interests')->where('id', $userId)->first();
+        try {
+            $userId = Auth::id();
+            $user = User::with('interests')->where('id', $userId)->first();
 
-        return $this->successResponse($user);
+            return $this->successResponse($user);
+        } catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage());
+        }
     }
 
     public function updateImageProfile(Request $request)
     {
-        $this->validate($request, [
-            'image' => 'image'
-        ]);
+        try {
+            $this->validate($request, [
+                'image' => 'image'
+            ]);
 
-        $user = User::find(Auth::id());
+            $user = User::find(Auth::id());
 
-        // Upload Image
-        $path = $request->file('image')->store('uploads');
+            // Upload Image
+            $path = $request->file('image')->store('uploads');
 
-        $user->profile = $path;
-        $user->save();
+            $user->profile = $path;
+            $user->save();
 
-        return $this->successResponse($user);
+            return $this->successResponse($user);
+        } catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage());
+        }
     }
 
     public function updateUserInfo(Request $request)
     {
-        $this->validate($request, [
-            'username' => '',
-            'password' => ''
-        ]);
+        try {
+            $this->validate($request, [
+                'username' => '',
+                'password' => ''
+            ]);
 
-        $user = User::find(Auth::id());
-        if (!empty($request->username))
-            $user->username = $request->username;
+            $user = User::find(Auth::id());
+            if (!empty($request->username))
+                $user->username = $request->username;
 
-        if (!empty($request->password)) {
-            $pass = bcrypt($request->password);
-            $user->password = $pass;
+            if (!empty($request->password)) {
+                $pass = bcrypt($request->password);
+                $user->password = $pass;
+            }
+            $user->save();
+
+            return $this->successResponse($user);
+        } catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage());
         }
-        $user->save();
-
-        return $this->successResponse($user);
     }
 }

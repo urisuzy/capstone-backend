@@ -29,7 +29,7 @@ class AuthController extends Controller
                 return $this->errorResponse('Error when create, please try again');
             }
         } catch (\Exception $e) {
-            return $this->errorResponse('Email atau Password salah!');
+            return $this->errorResponse($e->getMessage());
         }
     }
 
