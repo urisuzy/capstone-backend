@@ -12,10 +12,11 @@ class Tourism extends Model
         'user_id',
         'name',
         'description',
-        'category',
+        'category_id',
         'city',
         'price',
         'rating',
+        'time_minutes',
         'coordinate',
         'thumbnail'
     ];
@@ -33,5 +34,10 @@ class Tourism extends Model
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

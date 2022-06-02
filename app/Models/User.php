@@ -32,6 +32,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'role'
     ];
 
     public function tourism()

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TourismController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,4 +37,16 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('profile', [UserController::class, 'updateImageProfile']);
         Route::put('/', [UserController::class, 'updateUserInfo']);
     });
+
+    Route::resource('categories', CategoryController::class);
+
+    Route::prefix('tourisms')->group(function () {
+        Route::post('/', [TourismController::class, 'store']);
+        Route::get('/', [TourismController::class, 'list']);
+        Route::get('/favorites', [TourismController::class, 'favorited']);
+        Route::get('/{id}', [TourismController::class, 'show']);
+        Route::delete('/{id}', [TourismController::class, 'delete']);
+    });
 });
+
+Route::get('/unaunthenticated', [AuthController::class, 'unauthenticated'])->name('login');

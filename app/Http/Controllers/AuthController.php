@@ -64,4 +64,10 @@ class AuthController extends Controller
 
         return $this->successResponse(true);
     }
+
+    // to anticipate when mobile forget add accept json header
+    public function unauthenticated()
+    {
+        return $this->errorResponse('Unauthenticated', 401);
+    }
 }
