@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class);
     }
+
+    public function interests()
+    {
+        return $this->hasMany(Interest::class);
+    }
 }
