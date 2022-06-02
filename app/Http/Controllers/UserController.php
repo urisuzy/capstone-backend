@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -38,7 +37,11 @@ class UserController extends Controller
             $user->profile = $path;
             $user->save();
 
-            return $this->successResponse($user);
+            $response = [
+                'image' => config('app.url') . "/{$user->profile}"
+            ];
+
+            return $this->successResponse($response);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
