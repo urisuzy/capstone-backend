@@ -23,7 +23,7 @@ class TourismResource extends JsonResource
             'rating' => $this->rating,
             'time_minutes' => $this->time_minutes,
             'coordinate' => $this->coordinate,
-            'thumbnail' => $this->thumbnail ? "https://temp-bangkit.urisuzy.com/uploads/{$this->thumbnail}" : null,
+            'thumbnail' => $this->thumbnail ? config('app.url') . "/{$this->thumbnail}" : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'category' => new CategoryResource($this->category),
