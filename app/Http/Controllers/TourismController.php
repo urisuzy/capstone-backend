@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TourismResource;
 use App\Models\Category;
 use App\Models\Tourism;
 use App\Traits\ApiResponser;
@@ -82,7 +83,7 @@ class TourismController extends Controller
             ]);
 
             // begin query
-            $tourisms = Tourism::query();
+            $tourisms = Tourism::query()->with(['category', 'user']);
 
             // perform search
             if (!empty($request->search)) {
@@ -119,7 +120,7 @@ class TourismController extends Controller
 
             $tourisms = $tourisms->limit($itemsPerPage)->get();
 
-            return $this->successResponse($tourisms);
+            return $this->successResponse(TourismResource::collection($tourisms));
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }

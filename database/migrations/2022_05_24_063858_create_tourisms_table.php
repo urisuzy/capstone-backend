@@ -18,12 +18,12 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->string('name');
             $table->text('description');
-            $table->string('category');
+            $table->string('category_id');
             $table->string('city');
-            $table->integer('price');
+            $table->integer('price')->nullable();
             $table->double('rating');
             $table->integer('time_minutes');
-            $table->string('coordinate');
+            $table->string('coordinate')->nullable();
             $table->string('thumbnail');
             $table->timestamps();
         });
