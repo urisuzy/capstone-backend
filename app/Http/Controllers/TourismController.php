@@ -59,7 +59,7 @@ class TourismController extends Controller
             $tourism = Tourism::with(['user', 'reviews', 'category'])->where('id', $id)->first();
 
             if ($tourism) {
-                return $this->successResponse($tourism);
+                return $this->successResponse(new TourismResource($tourism));
             } else
                 return $this->errorResponse('Tourism not found', 404);
         } catch (\Exception $e) {
@@ -135,7 +135,7 @@ class TourismController extends Controller
             })
                 ->get();
 
-            return $this->successResponse($tourisms);
+            return $this->successResponse(TourismResource::collection($tourisms));
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
