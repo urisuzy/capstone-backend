@@ -19,7 +19,7 @@ class ReviewResource extends JsonResource
             'id' => $this->id,
             'rating' => $this->rating,
             'review' => $this->review,
-            'image' => $this->image,
+            'image' => $this->image ? config('app.url') . "/{$this->image}" : null,
             // 'username' => $this->user->username,
             // 'profile' => $this->user->profile,
             'user' => new UserResource($this->user)
