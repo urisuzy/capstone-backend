@@ -47,7 +47,10 @@ class AuthController extends Controller
                 $accessToken = $createToken->plainTextToken;
 
                 return $this->successResponse([
+                    'id' => $user->id,
+                    'username' => $user->username,
                     'email' => $user->email,
+                    'profile' => $user->profile,
                     'access_token' => $accessToken
                 ]);
             } else {
