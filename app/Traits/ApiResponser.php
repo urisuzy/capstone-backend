@@ -16,6 +16,7 @@ trait ApiResponser
 
   public function errorResponse($message, $code = 422)
   {
+    info($message);
     return response()->json([
       'code' => $code,
       'error' => true,
