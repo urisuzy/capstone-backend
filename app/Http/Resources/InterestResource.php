@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ReviewResource extends JsonResource
+class InterestResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,12 +17,8 @@ class ReviewResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
-            'rating' => $this->rating,
-            'review' => $this->review,
-            'image' => $this->image,
-            // 'username' => $this->user->username,
-            // 'profile' => $this->user->profile,
-            'user' => new UserResource($this->user)
+            'user' => new UserResource($this->user),
+            'category' => new CategoryResource($this->category)
         ];
     }
 }

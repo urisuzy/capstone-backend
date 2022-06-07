@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\InterestController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TourismController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -38,14 +40,30 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/', [UserController::class, 'updateUserInfo']);
     });
 
+    // Category
     Route::resource('categories', CategoryController::class);
 
+    // Tourism
     Route::prefix('tourisms')->group(function () {
         Route::post('/', [TourismController::class, 'store']);
         Route::get('/', [TourismController::class, 'list']);
         Route::get('/favorites', [TourismController::class, 'favorited']);
         Route::get('/{id}', [TourismController::class, 'show']);
         Route::delete('/{id}', [TourismController::class, 'delete']);
+    });
+
+    // Interest
+    Route::prefix('interests')->group(function () {
+        Route::post('/', [InterestController::class, 'add']);
+        Route::get('/', [InterestController::class, 'list']);
+        Route::put('/', [InterestController::class, 'update']);
+    });
+
+    // Review
+    Route::prefix('reviews')->group(function () {
+        Route::post('/', [ReviewController::class, 'add']);
+        Route::get('/', [ReviewController::class, 'list']);
+        Route::delete('/{id}', [ReviewController::class, 'delete']);
     });
 });
 
