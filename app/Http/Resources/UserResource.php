@@ -19,7 +19,8 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'username' => $this->username,
             'email' => $this->email,
-            'profile' =>  $this->profile ? config('app.url') . "/{$this->profile}" : null
+            'profile' =>  $this->profile ? config('app.url') . "/{$this->profile}" : null,
+            'interests' => new InterestResource($this->interests)
         ];
     }
 }
