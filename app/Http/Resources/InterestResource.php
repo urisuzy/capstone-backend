@@ -15,10 +15,6 @@ class InterestResource extends JsonResource
     public function toArray($request)
     {
         // return parent::toArray($request);
-        return [
-            // 'id' => $this->id,
-            // 'user' => new UserResource($this->user),
-            'category' => new CategoryResource($this->category)
-        ];
+        return $this->category->name;
     }
 }
