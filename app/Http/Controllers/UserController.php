@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class UserController extends Controller
             $userId = Auth::id();
             $user = User::with('interests')->where('id', $userId)->first();
 
-            return $this->successResponse($user);
+            return $this->successResponse(new UserResource($user));
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
@@ -65,7 +66,7 @@ class UserController extends Controller
             }
             $user->save();
 
-            return $this->successResponse($user);
+            return $this->successResponse(new UserResource($user));
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
