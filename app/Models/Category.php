@@ -16,4 +16,9 @@ class Category extends Model
     {
         return $this->hasMany(Tourism::class);
     }
+
+    public function interests()
+    {
+        return $this->hasMany(Interest::class);
+    }
 }
