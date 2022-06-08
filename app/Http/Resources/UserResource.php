@@ -20,7 +20,7 @@ class UserResource extends JsonResource
             'username' => $this->username,
             'email' => $this->email,
             'profile' =>  $this->profile ? config('app.url') . "/{$this->profile}" : null,
-            'interests' => new InterestResource($this->interests)
+            'interests' => InterestResource::collection($this->interests)
         ];
     }
 }
