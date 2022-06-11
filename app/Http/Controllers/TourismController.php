@@ -102,7 +102,7 @@ class TourismController extends Controller
                 if (!is_string($category))
                     throw new \Exception('Category hanya boleh berupa huruf.');
 
-                $tourisms = $tourisms->whereHas('categories', function (Builder $query) use ($category) {
+                $tourisms = $tourisms->whereHas('category', function (Builder $query) use ($category) {
                     $query->where('name', 'like', "%{$category}%");
                 });
             }
