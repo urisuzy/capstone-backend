@@ -24,6 +24,7 @@ class TourismResource extends JsonResource
             'description' => $this->description,
             'time_minutes' => $this->time_minutes,
             'coordinate' => $this->coordinate,
+            'maps' => "https://www.google.com/maps/search/{$this->name}",
             'thumbnail' => $this->thumbnail ? config('app.url') . "/{$this->thumbnail}" : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
