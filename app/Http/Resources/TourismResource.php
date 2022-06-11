@@ -21,6 +21,7 @@ class TourismResource extends JsonResource
             'city' => $this->city,
             'price' => $this->price,
             'rating' => $this->rating,
+            'description' => $this->description,
             'time_minutes' => $this->time_minutes,
             'coordinate' => $this->coordinate,
             'thumbnail' => $this->thumbnail ? config('app.url') . "/{$this->thumbnail}" : null,
