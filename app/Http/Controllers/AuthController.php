@@ -50,7 +50,7 @@ class AuthController extends Controller
                     'id' => $user->id,
                     'username' => $user->username,
                     'email' => $user->email,
-                    'profile' => $user->profile,
+                    'profile' => $user->profile ? config('app.url') . "/{$user->profile}" : null,
                     'access_token' => $accessToken
                 ]);
             } else {
