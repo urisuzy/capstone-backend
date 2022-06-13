@@ -24,7 +24,7 @@ return new class extends Migration
             $table->double('rating');
             $table->integer('time_minutes');
             $table->string('coordinate')->nullable();
-            $table->string('thumbnail');
+            $table->string('thumbnail')->nullable();
             $table->timestamps();
         });
     }

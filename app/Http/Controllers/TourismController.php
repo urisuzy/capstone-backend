@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Http;
+use App\Helpers\MLHelper;
 
 class TourismController extends Controller
 {
@@ -159,5 +161,43 @@ class TourismController extends Controller
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
+    }
+
+    public function recomendation()
+    {
+        try {
+            $visited = DB::table('reviews')->where('user_id', Auth::id())->pluck('tourism_id')->toArray();
+            $unvisited = DB::table('tourisms')->whereNotIn('id', $visited)->pluck('id')->toArray();
+
+            $convertToMlId = array_values(array_unique(MLHelper::convertLocalToML($unvisited)));
+
+            $arrayUserId = TourismController::loopUserId(Auth::id(), count($unvisited));
+
+            $response = Http::post(config('app.flask_host').'/prediction', [
+                'user_id' => $arrayUserId,
+                'tourism_id' => $convertToMlId
+            ]);
+            $json = $response->json();
+            $recomendedIds = array_slice($json, 0, 20);
+            
+            $convertToLocalId = array_values(array_unique(MLHelper::convertMLToLocal($recomendedIds)));
+
+            $ids_ordered = implode(',', $convertToLocalId);
+
+            $items = Tourism::whereIn('id', $convertToLocalId)->orderByRaw(DB::raw("FIELD(id, $ids_ordered)"))->get();
+
+            return $this->successResponse(TourismResource::collection($items));
+        } catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage());
+        }
+    }
+
+    private static function loopUserId($userId, $total)
+    {
+        $arr = [];
+        for ($i = 0; $i < $total; $i++) {
+            $arr[] = $userId;
+        }
+        return $arr;
     }
 }

@@ -45,6 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Tourism
     Route::prefix('tourisms')->group(function () {
+        Route::get('/recomendation', [TourismController::class, 'recomendation']);
         Route::post('/', [TourismController::class, 'store']);
         Route::get('/', [TourismController::class, 'list']);
         Route::get('/favorites', [TourismController::class, 'favorited']);

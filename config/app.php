@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
+    'flask_host' => env('FLASK_URL'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
